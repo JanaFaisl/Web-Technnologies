@@ -23,10 +23,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('admin/', admin.site.urls),
     path('', apps.templates.bookmodule.views.index),
     path('index/<int:val1>/', apps.templates.bookmodule.views.index),
     path('index2/<int:val1>/', apps.templates.bookmodule.views.index2),
-    path('books/', include("apps.templates.bookmodule.urls")), #include urls.py of bookmodule app
+    path('books/', include("apps.bookmodule.urls")), #include urls.py of bookmodule app
     path('users/', include("apps.usermodule.urls"))  #include urls.py of usermodule app
 ]
