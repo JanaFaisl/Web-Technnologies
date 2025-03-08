@@ -56,7 +56,7 @@ ROOT_URLCONF = 'libraryproject.urls'
 
 import os
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = os.path.join(BASE_DIR, "apps" + os.sep + "templates")
+TEMPLATE_DIR = BASE_DIR / "apps" / "templates"  # Using pathlib for cleaner syntax
 
 TEMPLATES = [
     {

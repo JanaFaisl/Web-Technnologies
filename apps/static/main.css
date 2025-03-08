@@ -1,0 +1,146 @@
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 40px;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    text-align: left;
+}
+
+/* Center text only on the Links Page */
+.page-links {
+    text-align: center;
+}
+
+/* Link Containers */
+.link-box {
+    padding: 20px;
+    margin: 10px auto;
+    width: 80%;
+}
+
+/* Background Colors */
+#link_green {
+    background-color: #c8facc;
+}
+
+#link_gray {
+    background-color: #444;
+}
+
+#link_black {
+    background-color: black;
+}
+
+/* Link Styling */
+.link {
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease-in-out;
+}
+
+#link-red {
+    color: red;
+}
+
+#link-yellow {
+    color: yellow;
+}
+
+#link-white {
+    color: white;
+}
+/* Hover Effects */
+#link-red:hover {
+    color: darkred;
+}
+
+#link-yellow:hover {
+    color: orange;
+}
+
+#link-white:hover {
+    color: lightgray;
+}
+
+.h1 {
+    text-align: left;
+    font-size: 28px;
+    padding: 15px;
+    font-weight: bold;
+
+}
+
+#formatting {
+    background-color: #f5f5dc;
+    color: green;
+}
+
+#listing {
+    background-color: #6aa1a1;
+    color: white;
+}
+
+p {
+    text-align: left;
+    font-size: 18px;
+    font-family: Arial, sans-serif;
+
+}
+
+table {
+    border-collapse: collapse;
+    margin: 20px auto;
+}
+
+.simple-table {
+    width: auto;
+    border: 3px double black; 
+}
+
+.simple-table caption {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.simple-table th {
+    font-weight: bold;
+    text-align: center;
+}
+
+.simple-table tr:last-child td {
+    font-weight: bold;
+}
+
+.simple-table th,
+.simple-table td {
+    border: 3px double black;
+    text-align: center;
+}
+
+.complex-table th,
+.complex-table td {
+    border: 1px solid black; 
+    padding: 5px 15px; 
+    text-align: center;
+}
+.complex-table td[colspan="4"] {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.complex-table td[rowspan="2"] {
+    width: 200px; 
+    height: auto;
+}
+
+.complex-table img {
+    width: 100%;
+}
+
+.complex-table tr:nth-child(3) td:first-child,
+.complex-table tr:nth-child(4) td:first-child,
+.complex-table tr:nth-child(5) td:first-child {
+    font-weight: bold;
+}

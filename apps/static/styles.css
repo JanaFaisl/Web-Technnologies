@@ -18,3 +18,27 @@
     color: #008CBA;
   }
   
+
+  body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    background-color: #f5f5dc; /* Light Beige */
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    color: #335c00; /* Dark Green */
+}
+
+mark {
+    background-color: yellow;
+}
+
+small {
+    font-size: 80%;
+}
+
+sub, sup {
+    font-size: 75%;
+}
