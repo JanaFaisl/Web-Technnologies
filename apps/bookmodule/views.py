@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from .models import Book
 
 
 def index2(request, val1 = 0): 
@@ -13,8 +13,11 @@ def index(request):
     return render(request, "bookmodule/index.html")
  
 def list_books(request):
-    return render(request, 'bookmodule/list_books.html')
- 
+    books = Book.objects.filter(price = 100)
+    return render(request, 'bookmodule/booklist.html', {'books': books})
+
+
+
 def aboutus(request):
     return render(request, 'bookmodule/aboutus.html')
 
@@ -52,6 +55,9 @@ def search_books(request):
         books = __getBooksList()
         filtered_books = []
 
+        mybook = Book.objects.create(title = 'Continuous Delivery', author = 'J.Humble and D. Farley', edition = 1)
+        mybook.save()
+
         for item in books:
             contained = False
             if isTitle and string in item['title'].lower():
@@ -71,3 +77,17 @@ def __getBooksList():
     book2 = {'id': 56788765, 'title': 'Reversing: Secrets of Reverse Engineering', 'author': 'E. Eilam'}
     book3 = {'id': 43211234, 'title': 'The Hundred-Page Machine Learning Book', 'author': 'Andriy Burkov'}
     return [book1, book2, book3]
+
+
+def simple_query(request):
+    mybooks=Book.objects.filter(title__icontains='and') # <- multiple objects
+    print(mybooks) 
+    return render(request, 'bookmodule/bookList.html', {'books':mybooks})
+
+
+def complex_query(request):
+    mybooks=books=Book.objects.filter(author__isnull = False).filter(title__icontains='and').filter(edition__gte = 2).exclude(price__lte = 100)[:10]
+    if len(mybooks)>=1:
+        return render(request, 'bookmodule/bookList.html', {'books':mybooks})
+    else:
+        return render(request, 'bookmodule/index.html')
