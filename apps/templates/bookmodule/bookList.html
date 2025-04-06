@@ -9,14 +9,17 @@
         <th>Title</th>
         <th>Author</th>
         <th>Price</th>
+        <th>Edition</th>
         
     </tr>
+    
     {% for b in books %}
         <tr>
             <td>{{b.id}}</td>
             <td>{{b.title}}</td>
             <td>{{b.author}}</td>
             <td>{{b.price}}</td>
+            <td>{{b.edition}}</td>
         </tr>
     {%endfor%}
 </table>

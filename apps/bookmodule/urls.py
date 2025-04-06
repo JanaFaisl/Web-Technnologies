@@ -13,4 +13,10 @@ urlpatterns = [
     path('html5/listing/', views.listing_page, name='listing_page'),
     path('html5/tables/', views.tables_page, name='tables_page'),
     path('search/', views.search_books, name='search_books'),
+    path('lab8/task1/', views.lab8_task1, name='books.lab8_task1'), 
+    path('lab8/task2/', views.lab8_task2, name='books.lab8_task2'), 
+    path('lab8/task3/', views.lab8_task3, name='books.lab8_task3'), 
+    path('lab8/task4/', views.lab8_task4, name='books.lab8_task4'), 
+    path('lab8/task5/', views.lab8_task5, name='books.lab8_task5'), 
+    path('lab8/task7/', views.lab8_task7, name='books.lab8_task7'),
 ]

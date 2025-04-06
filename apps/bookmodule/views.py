@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from .models import Book
-
+from .models import Book, Student, Address
+from django.db.models import Q, Count, Avg, Sum, Max, Min
 
 def index2(request, val1 = 0): 
     try:
@@ -91,3 +91,47 @@ def complex_query(request):
         return render(request, 'bookmodule/bookList.html', {'books':mybooks})
     else:
         return render(request, 'bookmodule/index.html')
+
+def lab8_task1(request):
+    mybooks = Book.objects.filter(Q(price__lte = 80))
+    if len(mybooks)>=1:
+        return render(request, 'bookmodule/bookList.html', {'books':mybooks})
+    else:
+        return render(request, 'bookmodule/index.html')
+
+def lab8_task2(request):
+    mybooks = Book.objects.filter(Q(edition__gte = 3) & ( Q(author__icontains = 'co') | Q(title__icontains = 'co') )  )
+    if len(mybooks)>=1:
+        return render(request, 'bookmodule/bookList.html', {'books':mybooks})
+    else:
+        return render(request, 'bookmodule/index.html')
+    
+def lab8_task3(request):
+    mybooks = Book.objects.filter(Q(edition__lte = 3) & ( ~Q(author__contains = 'co') | ~Q(title__contains = 'co') )  )
+    if len(mybooks)>=1:
+        return render(request, 'bookmodule/bookList.html', {'books':mybooks})
+    else:
+        return render(request, 'bookmodule/index.html')
+
+def lab8_task4(request):
+    mybooks = Book.objects.all().order_by('title')
+    if len(mybooks)>=1:
+        return render(request, 'bookmodule/bookList.html', {'books':mybooks})
+    else:
+        return render(request, 'bookmodule/index.html')
+
+def lab8_task5(request):
+    stats = Book.objects.aggregate(
+        total_books=Count('id'),
+        total_price=Sum('price'),
+        average_price=Avg('price'),
+        max_price=Max('price'),
+        min_price=Min('price')
+    )
+    return render(request, 'bookmodule/status.html', {'stats': stats})
+
+
+
+def lab8_task7(request):
+    city_stats = Student.objects.values('address__city').annotate(total=Count('id')) 
+    return render(request, 'bookmodule/studentNum.html', {'city_stats': city_stats})
