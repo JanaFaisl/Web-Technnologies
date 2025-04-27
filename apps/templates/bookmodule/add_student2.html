@@ -1,0 +1,50 @@
+<h1>{% if student_form.instance.pk %} Update {% else %} Add {% endif %} Student</h1>
+
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Student Name and Age fields -->
+    <div>
+        {{ student_form.name.label_tag }} {{ student_form.name }}
+        {% if student_form.name.errors %}
+            <div style="color: red;">{{ student_form.name.errors }}</div>
+        {% endif %}
+    </div>
+
+    <div>
+        {{ student_form.age.label_tag }} {{ student_form.age }}
+        {% if student_form.age.errors %}
+            <div style="color: red;">{{ student_form.age.errors }}</div>
+        {% endif %}
+    </div>
+
+    <!-- Address checkboxes for existing addresses -->
+    <h2>Select Existing Addresses:</h2>
+    <div>
+        {% for address in addresses %}
+            <label>
+                <input type="checkbox" name="addresses" value="{{ address.id }}"
+                    {% if address in student_form.instance.addresses.all %}checked{% endif %}>
+                {{ address.city }}
+            </label><br>
+        {% empty %}
+            <p>No addresses available yet.</p>
+        {% endfor %}
+    </div>
+
+    <hr style="margin: 20px 0;">
+
+    <!-- Optional: Add a new address -->
+    <h2>Or Add New Address (optional):</h2>
+    <div>
+        {{ address_form.city.label_tag }} {{ address_form.city }}
+        {% if address_form.city.errors %}
+            <div style="color: red;">{{ address_form.city.errors }}</div>
+        {% endif %}
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+<br>
+<a href="{% url 'student2_list' %}">Back to Students List</a>

@@ -2,7 +2,7 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.index, name='books.index'),  # Home page
+    path('', views.index,  name='books.index'),  # Home page
     path('list_books/', views.list_books, name='books.list_books'),  # List Books page
     path('simple/query/', views.simple_query, name='books.simple_query'), 
     path('complex/query/', views.complex_query, name='books.complex_query'), 
@@ -34,7 +34,19 @@ urlpatterns = [
     path('lab9_part2/editbook/<int:id>', views.edit_book_form, name='books.edit_book_form'),
     path('lab9_part2/deletebook/<int:id>', views.delete_book, name='books.delete_book_form'),
 
+    path('html5/t/', views.t, name='t'),
 
-    
+    path('list/', views.student_list, name='student_list'),
+    path('add/', views.add_student, name='add_student'),
+    path('update/<int:pk>/', views.update_student, name='update_student'),
+    path('delete/<int:pk>/', views.delete_student, name='delete_student'),
+
+    path('list2/', views.student2_list, name='student2_list'),
+    path('add-student2/', views.add_student2, name='add_student2'),
+    path('update-student2/<int:pk>/', views.update_student2, name='update_student2'),
+
+    path('add-product/', views.add_product, name='add_product'),
+    path('products/', views.product_list, name='product_list'),
+
 
 ]

@@ -1,3 +1,9 @@
+{% extends "bookmodule/layouts/base.html" %}
+
+{% load static %}
+
+{% block title %} List Books {% endblock title %}
+{% block content %}
 <h2>Book List</h2>
 <a href="{% url 'books.add_book' %}">Add New Book</a>
 <ul>
@@ -12,3 +18,4 @@
     {% endfor %}
   </ul>
   
+  {% endblock content %}

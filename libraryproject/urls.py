@@ -16,16 +16,22 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-import apps.templates.bookmodule.views
+import apps.bookmodule.views
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', apps.templates.bookmodule.views.index),
-    path('index/<int:val1>/', apps.templates.bookmodule.views.index),
-    path('index2/<int:val1>/', apps.templates.bookmodule.views.index2),
+    path('', apps.bookmodule.views.index),
+
     path('books/', include("apps.bookmodule.urls")), #include urls.py of bookmodule app
     path('users/', include("apps.usermodule.urls"))  #include urls.py of usermodule app
 ]
+
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

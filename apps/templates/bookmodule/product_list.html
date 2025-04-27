@@ -1,0 +1,33 @@
+<h1>Product List</h1>
+
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+<table border="1" cellpadding="10" cellspacing="0" style="width: 50%; border-collapse: collapse;">
+    <thead style="background-color: #f2f2f2;">
+        <tr>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for product in products %}
+            <tr>
+                <td>
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" style="width: 200px; height: 200px; object-fit: cover;">
+                <td>{{ product.name }}</td>
+                <td>{{ product.description|truncatewords:10 }}</td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="4" style="text-align: center;">No products found.</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+<br>
+
+
+<a href="{% url 'add_product' %}">
+    Add New Product
+</a>

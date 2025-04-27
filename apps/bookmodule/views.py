@@ -1,9 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Book, Student, Address
+from .models import Book, Student, Address, Product
 from django.db.models import Q, Count, Avg, Sum, Max, Min
-from .models import Department, Course, Student, Student_module, Card
-from .forms import BookForm
+from .models import Department, Course, Student, Student_module, Card, Address, Student2, Address2
+from .forms import BookForm,  StudentForm, AddressForm, Student2Form, Address2Form, ProductForm
 from django.shortcuts import get_object_or_404
 
 def index2(request, val1 = 0): 
@@ -216,3 +216,129 @@ def edit_book_form(request, id):
         form = BookForm(instance=book)
 
     return render(request, 'bookmodule/edit_book.html', {'form': form})
+
+
+def t(request):
+    return render(request, 'bookmodule/t.html')
+
+
+def student_list(request):
+    students = Student.objects.all()
+    return render(request, 'bookmodule/student_list.html', {'students': students})
+
+def add_student(request):
+    if request.method == 'POST':
+        student_form = StudentForm(request.POST)
+        if student_form.is_valid():
+            student = student_form.save(commit=False)
+            student.save()
+            return redirect('student_list')
+    else:
+        student_form = StudentForm()
+    return render(request, 'bookmodule/add_student.html', {'student_form': student_form})
+
+def update_student(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    address = student.address
+    if request.method == 'POST':
+        student_form = StudentForm(request.POST, instance=student)
+        address_form = AddressForm(request.POST, instance=address)
+        if address_form.is_valid() and student_form.is_valid():
+            address_form.save()
+            student_form.save()
+            return redirect('student_list')
+    else:
+        student_form = StudentForm(instance=student)
+        address_form = AddressForm(instance=address)
+    return render(request, 'bookmodule/add_student.html', {'student_form': student_form, 'address_form': address_form})
+
+def delete_student(request, pk):
+    student = get_object_or_404(Student, pk=pk)
+    student.delete()
+    return redirect('student_list')
+
+
+def student2_list(request):
+    students = Student2.objects.all()
+    return render(request, 'bookmodule/student2_list.html', {'students': students})
+
+def add_student2(request):
+    if request.method == 'POST':
+        student_form = Student2Form(request.POST)
+        address_form = Address2Form(request.POST)
+
+        if student_form.is_valid():
+            student = student_form.save(commit=False)
+            student.save()
+
+            # Get selected addresses from checkboxes
+            selected_addresses = request.POST.getlist('addresses')
+            if selected_addresses:
+                student.addresses.add(*Address2.objects.filter(id__in=selected_addresses))
+
+            # Check if a new city was entered
+            if address_form.is_valid() and address_form.cleaned_data.get('city'):
+                address = address_form.save()
+                student.addresses.add(address)
+
+            return redirect('student2_list')
+
+    else:
+        student_form = Student2Form()
+        address_form = Address2Form()
+
+    addresses = Address2.objects.all()
+    return render(request, 'bookmodule/add_student2.html', {
+        'student_form': student_form,
+        'address_form': address_form,
+        'addresses': addresses,
+    })
+
+
+
+def update_student2(request, pk):
+    student = get_object_or_404(Student2, pk=pk)
+    if request.method == 'POST':
+        student_form = Student2Form(request.POST, instance=student)
+        address_form = Address2Form(request.POST)
+        if student_form.is_valid() and address_form.is_valid():
+            # Save the new address
+            address = address_form.save()
+            # Save the updated student
+            student = student_form.save()
+            # Remove all existing addresses
+            student.addresses.clear()
+            # Get selected addresses from the form
+            selected_addresses = request.POST.getlist('addresses')
+            # Add selected addresses to the student
+            student.addresses.add(*Address2.objects.filter(id__in=selected_addresses))
+            # Add the new address to the student if it was created
+            student.addresses.add(address)  # Many-to-many: add new address
+            return redirect('student2_list')
+    else:
+        student_form = Student2Form(instance=student)
+        address_form = Address2Form()
+
+    # Fetch all addresses and pass them to the form
+    addresses = Address2.objects.all()
+    return render(request, 'bookmodule/add_student2.html', {
+        'student_form': student_form,
+        'address_form': address_form,
+        'addresses': addresses,
+    })
+
+def add_product(request):
+    if request.method == 'POST':
+        form = ProductForm(request.POST, request.FILES) 
+        if form.is_valid():
+            form.save()
+            return redirect('product_list')
+    else:
+        form = ProductForm()
+    return render(request, 'bookmodule/add_product.html', {'form': form})
+
+
+
+def product_list(request):
+    products = Product.objects.all()
+    return render(request, 'bookmodule/product_list.html', {'products': products})

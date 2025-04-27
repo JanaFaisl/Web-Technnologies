@@ -46,3 +46,21 @@ class Student_module(models.Model):
     def __str__(self):
         return self.name
 
+
+
+class Address2(models.Model):
+    city = models.CharField(max_length=100)
+
+class Student2(models.Model):
+    name = models.CharField(max_length=100)
+    age = models.IntegerField()
+    addresses = models.ManyToManyField(Address2)
+
+
+class Product(models.Model):
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='products/')  
+
+    def __str__(self):
+        return self.name

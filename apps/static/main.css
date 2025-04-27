@@ -144,3 +144,46 @@ table {
 .complex-table tr:nth-child(5) td:first-child {
     font-weight: bold;
 }
+
+.t-table, .t-table th, .t-table td {
+    border: 1px solid black;
+    border-collapse: separate;
+
+}
+.t-table caption{
+    font-weight: bold;
+    padding: 4px;
+}
+.t-table th, td{
+    text-align: center;
+}
+.t-table tr:last-child td{
+    font-weight: bold;
+}
+
+.tt-table, .tt-table th, .tt-table td {
+    border: 1px solid black; 
+    padding: 5px 15px; 
+    text-align: center;
+
+}
+.tt-table img{
+    width: 100%;
+}
+
+.tt-table  tr:nth-child(3) td:first-child, 
+.tt-table  tr:nth-child(4) td:first-child,
+.tt-table  tr:nth-child(5) td:first-child {
+    font-weight: bold;
+    
+}
+
+.tt-table td[colspan="4"] {
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.tt-table  tr:nth-child(2){
+    font-weight: bold;
+}
