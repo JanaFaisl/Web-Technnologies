@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home Page</title>
+</head>
+<body>
+
+<h1>Welcome to the Home Page</h1>
+
+{% if user.is_authenticated %}
+    <p>Hello, {{ user.username }}!</p>
+    <form action="/users/logout" method="post">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+{% else %}
+    <a href="/users/login">Login</a> | <a href="/users/register">Register</a>
+{% endif %}
+
+{% if messages %}
+    {% for message in messages %}
+        <div>{{ message }}</div>
+    {% endfor %}
+{% endif %}
+
+</body>
+</html>

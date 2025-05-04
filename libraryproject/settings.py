@@ -50,13 +50,14 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
 ]
 
 ROOT_URLCONF = 'libraryproject.urls'
 
 import os
 BASE_DIR = Path(__file__).resolve().parent.parent
-TEMPLATE_DIR = BASE_DIR / "apps" / "templates"  # Using pathlib for cleaner syntax
+TEMPLATE_DIR = BASE_DIR / "usermodule" / "templates"  # Using pathlib for cleaner syntax
 
 TEMPLATES = [
     {
@@ -117,7 +118,6 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
